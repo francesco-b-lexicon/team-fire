@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,33 +11,37 @@ namespace BirbGame
     public class PlayerController : MonoBehaviour
     {
 
+        public float flapWindow = 0.2f;
+        public float legWindow = 0.1f;
+        public float flapForce = 10f;
+        public float legForce = 10f;
 
-        public UIDocument ui;
-        private bool runUIUpdates;
 
         private Rigidbody2D rb;
         private SpriteRenderer sprite;
-        private string lastKeyUp = null;
+        private string lastLegUp = null;
 
-        [HideInInspector]
-        public bool leftLegActive = false;
-        [HideInInspector]
-        public bool rightLegActive = false;
-        [HideInInspector]
-        public bool leftWingActive = false;
-        [HideInInspector]
-        public bool rightWingActive = false;
+        private bool leftLegActive = false;
+        private bool rightLegActive = false;
+        private float leftLegPressTime = 0;
+        private float rightLegPressTime = 0;
+        private Double leftWingPressedTime = 0.0f;
+        private bool leftWingActive = false;
+        private Double rightWingPressedTime = 0.0f;
+        private bool rightWingActive = false;
 
         private bool stumble = false;
         private bool flipped = false;
 
-        private Vector2 walkForce = new(10, 0);
-        private Vector2 flyForce = new(0, 20);
+        private Vector2 walkForce;
+        private Vector2 flyForce;
         // Start is called before the first frame update
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
+            walkForce = new(legForce, 0);
+            flyForce = new(0, flapForce);
         }
 
         // Update is called once per frame
@@ -44,31 +49,83 @@ namespace BirbGame
         {
             // checking inputs here, but doing the actual updates in FixedUpdate because Physics
             // ie. Update() doesn't run in a fixed time interval, FixedUpdate() does
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-                lastKeyUp = "A";
-            }
-            else if (Input.GetKeyUp(KeyCode.D))
-            {
-                lastKeyUp = "D";
-            }
-            else if (Input.GetKeyUp(KeyCode.X))
+            if (Input.GetKeyUp(KeyCode.X))
             {
                 flipped = !flipped;
             }
 
-            leftLegActive = Input.GetKey(KeyCode.A);
-            rightLegActive = Input.GetKey(KeyCode.D);
-            leftWingActive = Input.GetKey(KeyCode.Q);
-            rightWingActive = Input.GetKey(KeyCode.E);
 
-            stumble = rightLegActive && lastKeyUp == "D" || leftLegActive && lastKeyUp == "A";
+            CheckLegInputs();
+            CheckWingInputs();
+
+            stumble = rightLegActive && lastLegUp == "D" || leftLegActive && lastLegUp == "A";
         }
 
         void FixedUpdate()
         {
             // what direction we goin?
             sprite.flipX = flipped;
+            Walk();
+            Fly();
+        }
+
+        private void CheckLegInputs()
+        {
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                lastLegUp = "A";
+            }
+            else if (Input.GetKeyUp(KeyCode.D))
+            {
+                lastLegUp = "D";
+            }
+
+            // check leg controls
+            leftLegPressTime -= Time.deltaTime;
+            rightLegPressTime -= Time.deltaTime;
+            // set a timer for each leg to limit max movement provided
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                leftLegPressTime = legWindow;
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                rightLegPressTime = legWindow;
+            }
+            // if key is down and timer still alive then flag as active;
+            leftLegActive = Input.GetKey(KeyCode.A) && leftLegPressTime > 0;
+            rightLegActive = Input.GetKey(KeyCode.D) && rightLegPressTime > 0;
+
+        }
+
+        private void CheckWingInputs()
+        {
+            // check flight controls
+            leftWingActive = false;
+            rightWingActive = false;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                leftWingPressedTime = flapWindow;
+            }
+            if (leftWingPressedTime > 0)
+            {
+                leftWingPressedTime -= Time.deltaTime;
+                leftWingActive = true;
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                rightWingPressedTime = flapWindow;
+            }
+            if (rightWingPressedTime > 0)
+            {
+                rightWingPressedTime -= Time.deltaTime;
+                rightWingActive = true;
+            }
+        }
+
+        private void Walk()
+        {
 
             // walking badly, stumble (zero velocity)
             if (stumble)
@@ -79,7 +136,7 @@ namespace BirbGame
             }
 
             // walking, clip clop
-            else if (leftLegActive || rightLegActive && !(leftLegActive && rightLegActive))
+            else if (leftLegActive || rightLegActive)
             {
                 print("walking using " + (leftLegActive ? "left" : "right") + "leg");
                 if (rb.velocity.magnitude < 20)
@@ -88,7 +145,10 @@ namespace BirbGame
                 }
                 print(rb.velocity);
             }
+        }
 
+        private void Fly()
+        {
             // flying related, flippity flap
             if (leftWingActive && rightWingActive)
             {
@@ -98,7 +158,11 @@ namespace BirbGame
                     rb.AddForce(flyForce, ForceMode2D.Force);
                 }
             }
+        }
 
+        private bool InputKeyChanged(KeyCode k)
+        {
+            return Input.GetKeyUp(k) || Input.GetKeyDown(k);
         }
     }
 }

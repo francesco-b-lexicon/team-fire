@@ -581,6 +581,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 225577237}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: flapForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: flapWindow
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2923988679705141991, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: m_Name
       value: Birb
