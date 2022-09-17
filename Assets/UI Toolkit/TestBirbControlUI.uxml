@@ -1,9 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/TestBirbControls.uss?fileID=7433441132597879392&amp;guid=741394414a55d444e89d9d263946ab09&amp;type=3#TestBirbControls" />
-    <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: flex-start; height: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; opacity: 1; background-color: rgba(255, 255, 255, 0);">
-        <ui:Label tabindex="-1" text="Wing-L" display-tooltip-when-elided="true" name="Wing-L" class="controlStatusLabel" />
-        <ui:Label tabindex="-1" text="Wing-R" display-tooltip-when-elided="true" name="Wing-R" class="controlStatusLabel" />
-        <ui:Label tabindex="-1" text="Leg-L" display-tooltip-when-elided="true" name="Leg-L" class="controlStatusLabel" />
-        <ui:Label tabindex="-1" text="Leg-R" display-tooltip-when-elided="true" name="Leg-R" class="controlStatusLabel" />
+    <Style src="project://database/Assets/UI%20Toolkit/TestBirbControls.uss?fileID=7433441132597879392&amp;guid=741394414a55d444e89d9d263946ab09&amp;type=3#TestBirbControls" />
+    <ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: flex-start; height: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; opacity: 1; background-color: rgba(255, 255, 255, 0);">
+            <ui:Label tabindex="-1" text="Wing-L" display-tooltip-when-elided="true" name="Wing-L" class="controlStatusLabel" />
+            <ui:Label tabindex="-1" text="Wing-R" display-tooltip-when-elided="true" name="Wing-R" class="controlStatusLabel" />
+            <ui:Label tabindex="-1" text="Leg-L" display-tooltip-when-elided="true" name="Leg-L" class="controlStatusLabel" />
+            <ui:Label tabindex="-1" text="Leg-R" display-tooltip-when-elided="true" name="Leg-R" class="controlStatusLabel" />
+        </ui:VisualElement>
+        <ui:VisualElement name="flightBarContainer">
+            <ui:ProgressBar title="Flight bar" high-value="50" name="flightBar" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

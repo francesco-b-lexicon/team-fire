@@ -23,6 +23,8 @@ namespace BirbGame
         public float energyRestoreRate = .25f;
         bool canFlightEnergyRestore = false;
         float lastEnergyRestoredTime;
+        public UIDocument UI;
+        ProgressBar flightEnergyBar;
 
         private Rigidbody2D rb;
         private SpriteRenderer sprite;
@@ -52,6 +54,10 @@ namespace BirbGame
 
             // set the initial flight energy
             currentFlightEnergy = maximumFlightEnergy;
+
+            flightEnergyBar = UI.rootVisualElement.Query<ProgressBar>("flightBar");
+            flightEnergyBar.lowValue = 0;
+            flightEnergyBar.highValue = maximumFlightEnergy;
         }
 
         // Update is called once per frame
@@ -88,6 +94,7 @@ namespace BirbGame
             {
                 lastEnergyRestoredTime = Time.time;
                 currentFlightEnergy = Math.Min(maximumFlightEnergy, currentFlightEnergy + energyRestoreUnit);
+                flightEnergyBar.value = currentFlightEnergy;
             }
         }
 
@@ -180,6 +187,7 @@ namespace BirbGame
                     rb.AddForce(flyForce, ForceMode2D.Force);
                     // remove some of the flight energy from birb
                     currentFlightEnergy -= energyUsageUnit;
+                    flightEnergyBar.value = currentFlightEnergy;
                 }
             }
         }
