@@ -88,6 +88,7 @@ namespace BirbGame
         {
             animator.SetBool("IsWalking", rightLegActive || leftLegActive);
             animator.SetBool("IsFlying", leftWingActive || rightWingActive);
+            animator.SetBool("IsPecking", attacking);
         }
 
         void FixedUpdate()
