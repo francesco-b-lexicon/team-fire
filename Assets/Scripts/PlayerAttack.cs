@@ -13,10 +13,14 @@ public class PlayerAttack : MonoBehaviour
         if (attacking)
         {
             Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, attackRange, targetLayers);
-            foreach (Collider2D hit in hitObjects)
+            foreach (Collider2D target in hitObjects)
             {
-                if (hit.gameObject.tag == "destructable")
-                { Destroy(hit.gameObject); }
+                IHittable targetHitBehaviour = target.GetComponent<IHittable>();
+
+                if (targetHitBehaviour != null && targetHitBehaviour.CanBeHit)
+                {
+                    targetHitBehaviour.Hit();
+                }
             }
         }
     }
