@@ -14,26 +14,24 @@ public class Checkpoint : MonoBehaviour
         ui = GameObject.FindObjectOfType<UIDocument>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("hit trif");
         if (other.gameObject.name == "BirbSprite")
         {
-            var gameManager = GameObject.FindObjectOfType<GameManager>();
+            Debug.Log("was birb");
+            var gameManager = GetComponentInParent<GameManager>();
+            Debug.Log(gameManager.GetCurrentLevel());
             if (gameManager.GetCurrentLevel() == levelNumber)
             {
+                Debug.Log("was same level");
                 var levelCompleteLabel = ui.rootVisualElement.Query<Label>("Level-Complete-Text").AtIndex(0);
                 levelCompleteLabel.text = "Level " + levelNumber.ToString() + " Complete";
                 levelCompleteLabel.RemoveFromClassList("labelHidden");
 
                 StartCoroutine(HideLevelCompleteLabel(levelCompleteLabel));
 
-                gameManager.SetLevel(levelNumber++);
+                gameManager.SetLevel(++levelNumber);
             }
         }
     }

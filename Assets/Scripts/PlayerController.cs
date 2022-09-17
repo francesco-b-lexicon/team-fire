@@ -234,7 +234,7 @@ namespace BirbGame
             // walking badly, stumble (zero velocity)
             if (stumble)
             {
-                Debug.Log("stumbled");
+                // Debug.Log("stumbled");
                 // rb.AddForce(Vector2.left, ForceMode2D.Impulse);
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 sfx.PlayStumbleSound();
@@ -243,7 +243,7 @@ namespace BirbGame
             // walking, clip clop
             else if (leftLegActive || rightLegActive)
             {
-                Debug.Log("walking using " + (leftLegActive ? "left" : "right") + "leg");
+                // Debug.Log("walking using " + (leftLegActive ? "left" : "right") + "leg");
                 if (rb.velocity.magnitude < 20)
                 {
                     rb.AddForce(walkForce * (flipped ? -1 : 1), ForceMode2D.Force);
@@ -258,17 +258,10 @@ namespace BirbGame
             if (leftWingActive && rightWingActive && currentFlightEnergy >= energyUsageUnit)
             {
 
-                Debug.Log("flapping my wings!");
+                // Debug.Log("flapping my wings!");
                 sfx.PlayFlyingSound();
                 rb.AddForce(flyForce, ForceMode2D.Force);
                 // remove some of the flight energy from birb
-
-                print("flapping my wings!");
-                sfx.PlayFlyingSound();
-                rb.AddForce(flyForce, ForceMode2D.Force);
-                // remove some of the flight energy from birb
-                currentFlightEnergy -= energyUsageUnit;
-
             }
         }
 

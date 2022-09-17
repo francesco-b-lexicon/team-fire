@@ -15,6 +15,9 @@ public class BackgroundMusic : MonoBehaviour
 
     public void SetClip(int level)
     {
+        if (!player) { player = GetComponent<AudioSource>(); }
+        player.Stop();
         player.clip = music[level];
+        player.Play();
     }
 }
