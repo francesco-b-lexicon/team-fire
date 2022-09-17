@@ -11,6 +11,7 @@ namespace BirbGame
     public class PlayerController : MonoBehaviour
     {
 
+        public UIDocument ui;
         public float flapWindow = 0.2f;
         public float legWindow = 0.1f;
         public float flapForce = 10f;
@@ -47,8 +48,6 @@ namespace BirbGame
         {
             rb = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
-            walkForce = new(legForce, 0);
-            flyForce = new(0, flapForce);
 
             // set the initial flight energy
             currentFlightEnergy = maximumFlightEnergy;
@@ -67,12 +66,16 @@ namespace BirbGame
 
             CheckLegInputs();
             CheckWingInputs();
-
+            UpdateUIElements();
             stumble = rightLegActive && lastLegUp == "D" || leftLegActive && lastLegUp == "A";
         }
 
         void FixedUpdate()
         {
+            // set forces here in case inspector updates;
+
+            walkForce = new(legForce, 0);
+            flyForce = new(0, flapForce);
             // what direction we goin?
             sprite.flipX = flipped;
             Walk();
@@ -88,6 +91,34 @@ namespace BirbGame
             {
                 lastEnergyRestoredTime = Time.time;
                 currentFlightEnergy = Math.Min(maximumFlightEnergy, currentFlightEnergy + energyRestoreUnit);
+            }
+        }
+
+        private void UpdateUIElements()
+        {
+            var uiRootEnum = ui.rootVisualElement.Children().GetEnumerator();
+            uiRootEnum.MoveNext();
+
+            foreach (VisualElement buttonIndicator in uiRootEnum.Current.Children())
+            {
+                var name = buttonIndicator.name;
+                if (name == "Wing-L")
+                {
+                    buttonIndicator.style.backgroundColor = leftWingActive ? Color.green : Color.white;
+                }
+                if (name == "Wing-R")
+                {
+                    buttonIndicator.style.backgroundColor = rightWingActive ? Color.green : Color.white;
+                }
+                if (name == "Leg-L")
+                {
+                    buttonIndicator.style.backgroundColor = leftLegActive ? Color.green : Color.white;
+                }
+                if (name == "Leg-R")
+                {
+                    buttonIndicator.style.backgroundColor = rightLegActive ? Color.green : Color.white;
+                }
+
             }
         }
 
@@ -126,7 +157,7 @@ namespace BirbGame
             // check flight controls
             leftWingActive = false;
             rightWingActive = false;
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 leftWingPressedTime = flapWindow;
             }
@@ -135,7 +166,7 @@ namespace BirbGame
                 leftWingPressedTime -= Time.deltaTime;
                 leftWingActive = true;
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 rightWingPressedTime = flapWindow;
             }
