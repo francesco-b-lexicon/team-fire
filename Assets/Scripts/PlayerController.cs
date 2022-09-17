@@ -13,7 +13,7 @@ namespace BirbGame
 
         public UIDocument ui;
         private Animator animator;
-
+        public float attackWindow = 0.35f;
         public float flapWindow = 0.2f;
         public float legWindow = 0.1f;
         public float flapForce = 10f;
@@ -28,6 +28,7 @@ namespace BirbGame
         float lastEnergyRestoredTime;
         ProgressBar flightEnergyBar;
 
+        private GameObject beak;
         private Rigidbody2D rb;
         private SpriteRenderer sprite;
         private string lastLegUp = null;
@@ -43,6 +44,8 @@ namespace BirbGame
 
         private bool stumble = false;
         private bool flipped = false;
+        private bool attacking = false;
+        private Double attackingTimer = 0f;
 
         private Vector2 walkForce;
         private Vector2 flyForce;
@@ -51,7 +54,7 @@ namespace BirbGame
         {
             rb = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
-
+            beak = GameObject.FindGameObjectWithTag("beak");
             // set the initial flight energy
             currentFlightEnergy = maximumFlightEnergy;
 
@@ -72,6 +75,7 @@ namespace BirbGame
                 flipped = !flipped;
             }
 
+            CheckAttackingInputs();
             CheckLegInputs();
             CheckWingInputs();
             UpdateUIElements();
@@ -96,6 +100,7 @@ namespace BirbGame
             sprite.flipX = flipped;
             Walk();
             Fly();
+            Attack();
             RestoreFlightEnergy();
         }
 
@@ -108,6 +113,23 @@ namespace BirbGame
                 lastEnergyRestoredTime = Time.time;
                 currentFlightEnergy = Math.Min(maximumFlightEnergy, currentFlightEnergy + energyRestoreUnit);
             }
+        }
+
+        private void CheckAttackingInputs()
+        {
+            attackingTimer -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                attackingTimer = attackWindow;
+            }
+            attacking = attackingTimer > 0;
+        }
+
+        private void Attack()
+        {
+
+            beak.GetComponent<BoxCollider2D>().enabled = attacking;
+            beak.GetComponent<SpriteRenderer>().enabled = attacking;
         }
 
         private void UpdateUIElements()
