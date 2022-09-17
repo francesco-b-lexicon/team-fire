@@ -87,7 +87,10 @@ namespace BirbGame
 
         private void SetAnimations()
         {
+            // it's moving in the x axis and it's touching the ground
             animator.SetBool("IsWalking", Math.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0 && canFlightEnergyRestore);
+
+            // it's moving in any direction and it's not on the ground
             animator.SetBool("IsFlying", Math.Abs(GetComponent<Rigidbody2D>().velocity.magnitude) > 0 && !canFlightEnergyRestore);
             animator.SetBool("IsPecking", attacking);
         }
