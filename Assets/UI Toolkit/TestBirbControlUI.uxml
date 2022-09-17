@@ -9,6 +9,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="flightBarContainer" style="flex-grow: 1; justify-content: center;">
             <ui:ProgressBar title="Flight bar" high-value="50" name="Flight-Bar" />
+            <ui:ProgressBar title="Respects bar" high-value="100" name="Respects-Bar" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
