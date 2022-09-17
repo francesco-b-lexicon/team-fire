@@ -24,14 +24,17 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.name == "BirbSprite")
         {
-            var levelCompleteLabel = ui.rootVisualElement.Query<Label>("Level-Complete-Text").AtIndex(0);
-            levelCompleteLabel.text = "Level " + levelNumber.ToString() + " Complete";
-            levelCompleteLabel.RemoveFromClassList("labelHidden");
-
-            StartCoroutine(HideLevelCompleteLabel(levelCompleteLabel));
-
             var gameManager = GameObject.FindObjectOfType<GameManager>();
-            gameManager.SetLevel(levelNumber++);
+            if (gameManager.GetCurrentLevel() == levelNumber)
+            {
+                var levelCompleteLabel = ui.rootVisualElement.Query<Label>("Level-Complete-Text").AtIndex(0);
+                levelCompleteLabel.text = "Level " + levelNumber.ToString() + " Complete";
+                levelCompleteLabel.RemoveFromClassList("labelHidden");
+
+                StartCoroutine(HideLevelCompleteLabel(levelCompleteLabel));
+
+                gameManager.SetLevel(levelNumber++);
+            }
         }
     }
 

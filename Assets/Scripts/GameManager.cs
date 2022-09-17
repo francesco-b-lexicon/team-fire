@@ -17,4 +17,9 @@ public class GameManager : MonoBehaviour
         level = newLevel;
         backgroundMusic.GetComponent<BackgroundMusic>().SetClip(newLevel);
     }
+
+    public int GetCurrentLevel()
+    {
+        return level;
+    }
 }
