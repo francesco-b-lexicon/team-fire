@@ -45,7 +45,9 @@ namespace BirbGame
 
         private bool stumble = false;
         private bool flipped = false;
-        private bool attacking = false;
+
+        [HideInInspector]
+        public bool attacking = false;
         private Double attackingTimer = 0f;
 
         private Vector2 walkForce;
@@ -122,19 +124,22 @@ namespace BirbGame
 
         private void CheckAttackingInputs()
         {
-            attackingTimer -= Time.deltaTime;
             if (Input.GetKey(KeyCode.B) && !attacking)
             {
                 sfx.PlayAttackSound();
                 attackingTimer = attackWindow;
+            }
+            else
+            {
+
+                attackingTimer -= Time.deltaTime;
             }
             attacking = attackingTimer > 0;
         }
 
         private void Attack()
         {
-
-            beak.GetComponent<BoxCollider2D>().enabled = attacking;
+            beak.GetComponent<PlayerAttack>().attacking = attacking;
             beak.GetComponent<SpriteRenderer>().enabled = attacking;
         }
 
@@ -230,7 +235,7 @@ namespace BirbGame
             // walking badly, stumble (zero velocity)
             if (stumble)
             {
-                print("stumbled");
+                Debug.Log("stumbled");
                 // rb.AddForce(Vector2.left, ForceMode2D.Impulse);
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 sfx.PlayStumbleSound();
@@ -239,7 +244,7 @@ namespace BirbGame
             // walking, clip clop
             else if (leftLegActive || rightLegActive)
             {
-                print("walking using " + (leftLegActive ? "left" : "right") + "leg");
+                Debug.Log("walking using " + (leftLegActive ? "left" : "right") + "leg");
                 if (rb.velocity.magnitude < 20)
                 {
                     rb.AddForce(walkForce * (flipped ? -1 : 1), ForceMode2D.Force);
@@ -253,11 +258,18 @@ namespace BirbGame
             // flying related, flippity flap
             if (leftWingActive && rightWingActive && currentFlightEnergy >= energyUsageUnit)
             {
+
+                Debug.Log("flapping my wings!");
+                sfx.PlayFlyingSound();
+                rb.AddForce(flyForce, ForceMode2D.Force);
+                // remove some of the flight energy from birb
+
                 print("flapping my wings!");
                 sfx.PlayFlyingSound();
                 rb.AddForce(flyForce, ForceMode2D.Force);
                 // remove some of the flight energy from birb
                 currentFlightEnergy -= energyUsageUnit;
+
             }
         }
 
