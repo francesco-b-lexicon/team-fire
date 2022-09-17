@@ -136,8 +136,10 @@ namespace BirbGame
         {
             var uiRootEnum = ui.rootVisualElement.Children().GetEnumerator();
             uiRootEnum.MoveNext();
+            var innerContainerEnum = uiRootEnum.Current.Children().GetEnumerator();
+            innerContainerEnum.MoveNext();
 
-            foreach (VisualElement buttonIndicator in uiRootEnum.Current.Children())
+            foreach (VisualElement buttonIndicator in innerContainerEnum.Current.Children())
             {
                 var name = buttonIndicator.name;
                 if (name == "Wing-L")
