@@ -259,7 +259,7 @@ namespace BirbGame
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            if (col.gameObject.name == "Floor")
+            if (col.gameObject.tag == "Ground")
             {
                 canFlightEnergyRestore = true;
             }
@@ -267,7 +267,7 @@ namespace BirbGame
 
         private void OnCollisionExit2D(Collision2D col)
         {
-            if (col.gameObject.name == "Floor")
+            if (col.gameObject.tag == "Ground")
             {
                 canFlightEnergyRestore = false;
             }

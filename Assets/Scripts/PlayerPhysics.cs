@@ -21,7 +21,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.name == "Floor")
+        if (col.collider.tag == "Ground")
         {
             var speed = LastVelocity.magnitude * bouncinessMultiplier;
             var direction = Vector2.Reflect(LastVelocity.normalized, col.contacts[0].normal);
