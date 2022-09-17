@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707ebcdfb2dbf4f73b8eddd507726c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bouncinessMultiplier: 0.4
 --- !u!1 &1963579728
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,11 +556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2923988679705141988, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.8068109
+      value: -4.41
       objectReference: {fileID: 0}
     - target: {fileID: 2923988679705141988, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 2923988679705141988, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: m_LocalPosition.z
@@ -604,6 +605,18 @@ PrefabInstance:
     - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: flapWindow
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: energyRestoreRate
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: energyRestoreUnit
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923988679705141989, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
+      propertyPath: maximumFlightEnergy
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2923988679705141991, guid: 7d81ec0d0fb2249c8bfdfc3ee4ba1c32, type: 3}
       propertyPath: m_Name

@@ -16,6 +16,13 @@ namespace BirbGame
         public float flapForce = 10f;
         public float legForce = 10f;
 
+        public float maximumFlightEnergy = 100f;
+        public float currentFlightEnergy;
+        public float energyUsageUnit = .5f;
+        public float energyRestoreUnit = 1f;
+        public float energyRestoreRate = .25f;
+        bool canFlightEnergyRestore = false;
+        float lastEnergyRestoredTime;
 
         private Rigidbody2D rb;
         private SpriteRenderer sprite;
@@ -42,6 +49,9 @@ namespace BirbGame
             sprite = GetComponentInChildren<SpriteRenderer>();
             walkForce = new(legForce, 0);
             flyForce = new(0, flapForce);
+
+            // set the initial flight energy
+            currentFlightEnergy = maximumFlightEnergy;
         }
 
         // Update is called once per frame
@@ -67,6 +77,18 @@ namespace BirbGame
             sprite.flipX = flipped;
             Walk();
             Fly();
+            RestoreFlightEnergy();
+        }
+
+        private void RestoreFlightEnergy()
+        {
+            if (!canFlightEnergyRestore || currentFlightEnergy >= maximumFlightEnergy) return;
+
+            if (Time.time >= lastEnergyRestoredTime + energyRestoreRate)
+            {
+                lastEnergyRestoredTime = Time.time;
+                currentFlightEnergy = Math.Min(maximumFlightEnergy, currentFlightEnergy + energyRestoreUnit);
+            }
         }
 
         private void CheckLegInputs()
@@ -150,13 +172,31 @@ namespace BirbGame
         private void Fly()
         {
             // flying related, flippity flap
-            if (leftWingActive && rightWingActive)
+            if (leftWingActive && rightWingActive && currentFlightEnergy >= energyUsageUnit)
             {
                 print("flapping my wings!");
                 if (rb.position.y < 20)
                 {
                     rb.AddForce(flyForce, ForceMode2D.Force);
+                    // remove some of the flight energy from birb
+                    currentFlightEnergy -= energyUsageUnit;
                 }
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            if (col.gameObject.name == "Floor")
+            {
+                canFlightEnergyRestore = true;
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D col)
+        {
+            if (col.gameObject.name == "Floor")
+            {
+                canFlightEnergyRestore = false;
             }
         }
 
