@@ -140,7 +140,6 @@ namespace BirbGame
         private void Attack()
         {
             beak.GetComponent<PlayerAttack>().attacking = attacking;
-            beak.GetComponent<SpriteRenderer>().enabled = attacking;
         }
 
         private void UpdateUIElements()
