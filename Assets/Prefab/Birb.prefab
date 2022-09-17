@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -71026969
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cad49ada3791044b9805799f64b2b206, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 2923988679705141988}
   - component: {fileID: 2923988679705141986}
   - component: {fileID: 2923988679705141989}
+  - component: {fileID: 4274837444877769427}
   m_Layer: 8
   m_Name: Birb
   m_TagString: Player
@@ -127,7 +128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2923988679705141991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8068109, y: 0.3, z: -0.0209611}
+  m_LocalPosition: {x: -2.8068109, y: 12, z: -0.0209611}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -166,5 +167,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e18db38c376694914b34487312a2b05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flapWindow: 0.15
+  legWindow: 0.1
+  flapForce: 15
+  legForce: 10
+--- !u!114 &4274837444877769427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923988679705141991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707ebcdfb2dbf4f73b8eddd507726c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
