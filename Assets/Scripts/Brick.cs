@@ -10,8 +10,10 @@ public class Brick : MonoBehaviour, IHittable
     public int health = 3;
     public float immuneWindow = 0.5f;
     private float immuneTimer = 0;
-    private bool kill = false;
+    private bool dead = false;
     private AudioSource sfx;
+    private SpriteRenderer sprite;
+    private Color normalColor;
     public void Hit()
     {
         if (immuneTimer <= 0)
@@ -22,11 +24,17 @@ public class Brick : MonoBehaviour, IHittable
             {
                 sfx.PlayOneShot(deathSound);
                 GetComponent<Collider2D>().enabled = false;
-                kill = true;
+                // GetComponent<ParticleSystem>().Emit();
+                dead = true;
+                sprite.color = Color.black;
 
             }
-
-            sfx.PlayOneShot(hitSound);
+            else
+            {
+                normalColor = sprite.color;
+                sprite.color = Color.red;
+                sfx.PlayOneShot(hitSound);
+            }
             CanBeHit = false;
             immuneTimer = immuneWindow;
         }
@@ -35,10 +43,12 @@ public class Brick : MonoBehaviour, IHittable
     void Awake()
     {
         sfx = GetComponent<AudioSource>();
+        sprite = GetComponent<SpriteRenderer>();
+        normalColor = sprite.color;
     }
     void Update()
     {
-        if (kill && !sfx.isPlaying)
+        if (dead && !sfx.isPlaying)
         {
             Destroy(gameObject);
         }
@@ -46,9 +56,11 @@ public class Brick : MonoBehaviour, IHittable
         {
             immuneTimer -= Time.deltaTime;
         }
-        else
+        else if (!dead)
         {
+            sprite.color = normalColor;
             CanBeHit = true;
         }
+
     }
 }
