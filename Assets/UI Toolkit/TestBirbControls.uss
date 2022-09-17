@@ -13,3 +13,14 @@
     border-top-width: 2px;
     border-bottom-width: 2px;
 }
+
+.labelHidden {
+    visibility: hidden;
+}
+
+.levelCompletedLabel {
+    -unity-font-style: bold;
+    font-size: 25px;
+    color: rgb(236, 236, 236);
+    transition: visibility 2s ease-in-out;
+}

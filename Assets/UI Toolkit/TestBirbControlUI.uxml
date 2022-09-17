@@ -12,4 +12,7 @@
             <ui:ProgressBar title="Respects bar" high-value="100" name="Respects-Bar" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement style="max-height: none; min-height: 79px; justify-content: center; align-items: center;">
+        <ui:Label tabindex="-1" text="Level complete" display-tooltip-when-elided="true" name="Level-Complete-Text" class="labelHidden levelCompletedLabel" />
+    </ui:VisualElement>
 </ui:UXML>
