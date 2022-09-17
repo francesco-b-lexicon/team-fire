@@ -86,8 +86,8 @@ namespace BirbGame
 
         private void SetAnimations()
         {
-            animator.SetBool("IsWalking", rightLegActive || leftLegActive);
-            animator.SetBool("IsFlying", leftWingActive || rightWingActive);
+            animator.SetBool("IsWalking", Math.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0 && canFlightEnergyRestore);
+            animator.SetBool("IsFlying", Math.Abs(GetComponent<Rigidbody2D>().velocity.magnitude) > 0 && !canFlightEnergyRestore);
             animator.SetBool("IsPecking", attacking);
         }
 
