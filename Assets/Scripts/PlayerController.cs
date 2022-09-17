@@ -12,6 +12,8 @@ namespace BirbGame
     {
 
         public UIDocument ui;
+        private Animator animator;
+
         public float flapWindow = 0.2f;
         public float legWindow = 0.1f;
         public float flapForce = 10f;
@@ -56,6 +58,8 @@ namespace BirbGame
             flightEnergyBar = ui.rootVisualElement.Query<ProgressBar>("Flight-Bar");
             flightEnergyBar.lowValue = 0;
             flightEnergyBar.highValue = maximumFlightEnergy;
+
+            animator = GetComponentInChildren<Animator>();
         }
 
         // Update is called once per frame
@@ -68,11 +72,18 @@ namespace BirbGame
                 flipped = !flipped;
             }
 
-
             CheckLegInputs();
             CheckWingInputs();
             UpdateUIElements();
             stumble = rightLegActive && lastLegUp == "D" || leftLegActive && lastLegUp == "A";
+
+            SetAnimations();
+        }
+
+        private void SetAnimations()
+        {
+            animator.SetBool("IsWalking", rightLegActive || leftLegActive);
+            animator.SetBool("IsFlying", leftWingActive || rightWingActive);
         }
 
         void FixedUpdate()
