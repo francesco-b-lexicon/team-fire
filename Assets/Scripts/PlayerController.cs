@@ -30,6 +30,7 @@ namespace BirbGame
 
         private GameObject beak;
         private Rigidbody2D rb;
+        private PlayerAudio sfx;
         private SpriteRenderer sprite;
         private string lastLegUp = null;
 
@@ -44,9 +45,7 @@ namespace BirbGame
 
         private bool stumble = false;
         private bool flipped = false;
-
-        [HideInInspector]
-        public bool attacking = false;
+        private bool attacking = false;
         private Double attackingTimer = 0f;
 
         private Vector2 walkForce;
@@ -56,6 +55,7 @@ namespace BirbGame
         {
             rb = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
+            sfx = GetComponent<PlayerAudio>();
             beak = GameObject.FindGameObjectWithTag("beak");
             // set the initial flight energy
             currentFlightEnergy = maximumFlightEnergy;
@@ -76,7 +76,6 @@ namespace BirbGame
             {
                 flipped = !flipped;
             }
-
             CheckAttackingInputs();
             CheckLegInputs();
             CheckWingInputs();
@@ -88,8 +87,11 @@ namespace BirbGame
 
         private void SetAnimations()
         {
-            animator.SetBool("IsWalking", rightLegActive || leftLegActive);
-            animator.SetBool("IsFlying", leftWingActive || rightWingActive);
+            // it's moving in the x axis and it's touching the ground
+            animator.SetBool("IsWalking", Math.Abs(GetComponent<Rigidbody2D>().velocity.x) > 0 && canFlightEnergyRestore);
+
+            // it's moving in any direction and it's not on the ground
+            animator.SetBool("IsFlying", Math.Abs(GetComponent<Rigidbody2D>().velocity.magnitude) > 0 && !canFlightEnergyRestore);
             animator.SetBool("IsPecking", attacking);
         }
 
@@ -120,20 +122,19 @@ namespace BirbGame
 
         private void CheckAttackingInputs()
         {
+            attackingTimer -= Time.deltaTime;
             if (Input.GetKey(KeyCode.B) && !attacking)
             {
+                sfx.PlayAttackSound();
                 attackingTimer = attackWindow;
-            }
-            else
-            {
-
-                attackingTimer -= Time.deltaTime;
             }
             attacking = attackingTimer > 0;
         }
 
         private void Attack()
         {
+
+            beak.GetComponent<BoxCollider2D>().enabled = attacking;
             beak.GetComponent<SpriteRenderer>().enabled = attacking;
         }
 
@@ -229,19 +230,21 @@ namespace BirbGame
             // walking badly, stumble (zero velocity)
             if (stumble)
             {
-                Debug.Log("stumbled");
+                print("stumbled");
                 // rb.AddForce(Vector2.left, ForceMode2D.Impulse);
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                sfx.PlayStumbleSound();
             }
 
             // walking, clip clop
             else if (leftLegActive || rightLegActive)
             {
-                Debug.Log("walking using " + (leftLegActive ? "left" : "right") + "leg");
+                print("walking using " + (leftLegActive ? "left" : "right") + "leg");
                 if (rb.velocity.magnitude < 20)
                 {
                     rb.AddForce(walkForce * (flipped ? -1 : 1), ForceMode2D.Force);
                 }
+                sfx.PlayWalkingSound();
             }
         }
 
@@ -250,13 +253,11 @@ namespace BirbGame
             // flying related, flippity flap
             if (leftWingActive && rightWingActive && currentFlightEnergy >= energyUsageUnit)
             {
-                Debug.Log("flapping my wings!");
-                if (rb.position.y < 20)
-                {
-                    rb.AddForce(flyForce, ForceMode2D.Force);
-                    // remove some of the flight energy from birb
-                    currentFlightEnergy -= energyUsageUnit;
-                }
+                print("flapping my wings!");
+                sfx.PlayFlyingSound();
+                rb.AddForce(flyForce, ForceMode2D.Force);
+                // remove some of the flight energy from birb
+                currentFlightEnergy -= energyUsageUnit;
             }
         }
 
