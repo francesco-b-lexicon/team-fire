@@ -1584,7 +1584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2919647753137866155, guid: c65b041267b91441792d0a154f9ee5fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.24
+      value: 4.78
       objectReference: {fileID: 0}
     - target: {fileID: 2919647753137866155, guid: c65b041267b91441792d0a154f9ee5fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1629,7 +1629,7 @@ PrefabInstance:
     - target: {fileID: 7898103604242603854, guid: c65b041267b91441792d0a154f9ee5fb, type: 3}
       propertyPath: videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: e8fd37d9ba1bc4365a82361045d2f702, type: 3}
+      objectReference: {fileID: 32900000, guid: bd72ca3e4749d4d0d9815c979c06b7f2, type: 3}
     - target: {fileID: 7898103604242603854, guid: c65b041267b91441792d0a154f9ee5fb, type: 3}
       propertyPath: videoPlayer
       value: 
