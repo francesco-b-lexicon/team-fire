@@ -16,6 +16,7 @@ public class PlayerPayRespects : MonoBehaviour
 
     public GameObject frankWithScarf;
     public GameObject frankNoScarf;
+    public GameObject scarf;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,12 @@ public class PlayerPayRespects : MonoBehaviour
                     Destroy(frankWithScarf);
                     Instantiate(frankNoScarf, frankPosition, Quaternion.identity);
                     canPayRespects = false;
+
+                    var _scarf = Instantiate(scarf);
+                    _scarf.transform.parent = gameObject.transform;
+                    _scarf.transform.localPosition = new Vector3(-0.53f, 0.48f, 0.02f);
+                    _scarf.transform.localScale = new Vector3(1, 1, 1);
+                    _scarf.transform.localRotation = Quaternion.Euler(0, 0, -28.87f);
                 }
             }
             else
@@ -54,6 +61,7 @@ public class PlayerPayRespects : MonoBehaviour
         if (col.gameObject.name == "FrankWithScarf")
         {
             canPayRespects = true;
+            respectsBar.RemoveFromClassList("hidden");
         }
     }
 
@@ -62,6 +70,14 @@ public class PlayerPayRespects : MonoBehaviour
         if (col.gameObject.name == "FrankWithScarf")
         {
             canPayRespects = false;
+            StartCoroutine(HideRespectsBar());
         }
+    }
+
+    private IEnumerator HideRespectsBar()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        respectsBar.AddToClassList("hidden");
     }
 }
