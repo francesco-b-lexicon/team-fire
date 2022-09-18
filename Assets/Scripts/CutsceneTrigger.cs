@@ -5,17 +5,16 @@ using UnityEngine.Video;
 
 public class CutsceneTrigger : MonoBehaviour
 {
-    public VideoPlayer videoPlayer;
     public VideoClip videoClip;
     private VideoPlayer vp;
-    private bool startedPlaying = false;
+    public bool startedPlaying = false;
 
 
-    private Camera mainCamera;
+    private GameObject mainCamera;
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = GameObject.FindObjectOfType<Camera>();
+        mainCamera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -23,12 +22,7 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (startedPlaying)
         {
-            var isPlaying = vp.isPlaying;
-
-            if (!isPlaying)
-            {
-                Destroy(vp);
-            }
+            vp.loopPointReached += EndReached;
         }
     }
 
@@ -37,10 +31,17 @@ public class CutsceneTrigger : MonoBehaviour
         if (other.gameObject.name == "BirbSprite" && !startedPlaying)
         {
             startedPlaying = true;
-            vp = Instantiate(videoPlayer);
-            vp.transform.parent = mainCamera.transform;
+            vp = mainCamera.AddComponent<UnityEngine.Video.VideoPlayer>();
+            vp.playOnAwake = false;
+            vp.aspectRatio = VideoAspectRatio.FitOutside;
+            vp.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
             vp.clip = videoClip;
             vp.Play();
         }
+    }
+
+    private void EndReached(UnityEngine.Video.VideoPlayer vp)
+    {
+        Destroy(vp);
     }
 }
