@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class FlyoverFrank : MonoBehaviour
 {
-
-    public float speed = 1f;
-    public float height = 5f;
-    private float endPos = 0;
-
     // Update is called once per frame
-    void Start()
+    void Awake()
     {
-        endPos = transform.position.x + 100;
+        StartCoroutine(DestroyFrank());
     }
-    void Update()
+
+    private IEnumerator DestroyFrank()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * speed);
-        if (transform.position.x > endPos)
-        {
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(9);
+
+        Destroy(gameObject);
     }
 }

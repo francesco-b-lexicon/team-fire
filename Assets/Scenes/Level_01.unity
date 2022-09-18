@@ -549,7 +549,8 @@ GameObject:
   m_Component:
   - component: {fileID: 439986463}
   - component: {fileID: 439986462}
-  - component: {fileID: 439986461}
+  - component: {fileID: 439986464}
+  - component: {fileID: 439986465}
   m_Layer: 0
   m_Name: FrankFlyover
   m_TagString: Untagged
@@ -557,20 +558,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &439986461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439986460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85d7a6da856440799401234d3d58b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  height: 5
 --- !u!212 &439986462
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -638,6 +625,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -35.47}
+--- !u!95 &439986464
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439986460}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2f11bf3eaf3874cbb9899b4dd5831ff1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &439986465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439986460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85d7a6da856440799401234d3d58b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &669254414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,7 +1203,7 @@ MonoBehaviour:
   minDistance: 0
   followDistance: 0
   target: {fileID: 1607710137}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0.6, z: 0}
 --- !u!1 &1020936755
 GameObject:
   m_ObjectHideFlags: 0
