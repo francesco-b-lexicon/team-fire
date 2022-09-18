@@ -85,6 +85,7 @@ namespace BirbGame
             UpdateUIElements();
             stumble = rightLegActive && lastLegUp == "D" || leftLegActive && lastLegUp == "A";
 
+            canFlightEnergyRestore = rb.velocity.y <= 0;
             SetAnimations();
         }
 
@@ -265,21 +266,6 @@ namespace BirbGame
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            if (col.gameObject.tag == "Ground")
-            {
-                canFlightEnergyRestore = true;
-            }
-        }
-
-        private void OnCollisionExit2D(Collision2D col)
-        {
-            if (col.gameObject.tag == "Ground")
-            {
-                canFlightEnergyRestore = false;
-            }
-        }
 
         private bool InputKeyChanged(KeyCode k)
         {

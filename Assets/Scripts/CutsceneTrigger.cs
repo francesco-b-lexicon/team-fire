@@ -23,6 +23,10 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (startedPlaying)
         {
+            if (Input.GetKey(KeyCode.F))
+            {
+                EndReached(vp);
+            }
             vp.loopPointReached += EndReached;
         }
     }
