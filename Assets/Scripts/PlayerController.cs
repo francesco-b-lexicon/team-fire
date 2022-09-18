@@ -259,6 +259,7 @@ namespace BirbGame
                 // Debug.Log("flapping my wings!");
                 sfx.PlayFlyingSound();
                 rb.AddForce(flyForce, ForceMode2D.Force);
+                rb.AddForce(walkForce * (flipped ? -1 : 1) * 0.35f, ForceMode2D.Force);
                 // remove some of the flight energy from birb
                 currentFlightEnergy -= energyUsageUnit;
             }

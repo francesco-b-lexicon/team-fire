@@ -4842,7 +4842,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8273168342937462955}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.72, y: -2.92, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -5096,6 +5096,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 8624a635cfb944a4796cbdcff197ddcf, type: 3}
   deathSound: {fileID: 8300000, guid: fb3e75a199cc64959806f3c98a6bb70a, type: 3}
   spriteHurt: {fileID: 21300000, guid: eddd1bc2841084beabb229347956b958, type: 3}
-  spriteDestroyed: {fileID: 21300000, guid: 2cabee576408d4d1b80b21c504ea6260, type: 3}
+  spriteDestroyed: {fileID: 21300000, guid: 87cca69dfd165440e9e28058691606ca, type: 3}
   health: 5
   immuneWindow: 0.5
+  rockletPrefab: {fileID: 3046575384948127133, guid: 9d082887a1e6842e9a55c98e3a5000f2, type: 3}
+  numberOfRocklets: 5
