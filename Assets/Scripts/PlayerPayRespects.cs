@@ -37,9 +37,9 @@ public class PlayerPayRespects : MonoBehaviour
 
                 if (currentRespectsPaid == totalRespectsToPay)
                 {
-                    var frankPosition = frankNoScarf.transform.position;
-                    Destroy(frankWithScarf);
+                    var frankPosition = frankWithScarf.transform.position;
                     Instantiate(frankNoScarf, frankPosition, Quaternion.identity);
+                    Destroy(frankWithScarf);
                     canPayRespects = false;
 
                     var _scarf = Instantiate(scarf);
