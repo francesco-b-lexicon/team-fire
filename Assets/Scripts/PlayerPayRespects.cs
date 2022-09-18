@@ -21,6 +21,7 @@ public class PlayerPayRespects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ui ??= FindObjectOfType<UIDocument>();
         respectsBar = ui.rootVisualElement.Query<ProgressBar>("Respects-Bar");
     }
 

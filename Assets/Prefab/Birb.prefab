@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2923988679113454328}
   - component: {fileID: 119972658}
   m_Layer: 8
-  m_Name: Sprite
+  m_Name: BirbSprite
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.2627196
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -363,7 +363,8 @@ MonoBehaviour:
   respectsIncreaseUnit: 5
   respectsIncreaseRate: 0.1
   frankWithScarf: {fileID: 0}
-  frankNoScarf: {fileID: 0}
+  frankNoScarf: {fileID: 1530897317562530335, guid: 7617d0bab5dda48cdb196594914ca2c6, type: 3}
+  scarf: {fileID: 5124506969528000728, guid: e69b1d4f42187428d8239df93b6bbad3, type: 3}
 --- !u!1 &7081468928414855647
 GameObject:
   m_ObjectHideFlags: 0

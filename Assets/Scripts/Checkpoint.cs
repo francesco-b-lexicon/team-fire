@@ -6,40 +6,19 @@ using UnityEngine.UIElements;
 public class Checkpoint : MonoBehaviour
 {
     public int levelNumber;
+    private GameManager gameManager;
 
-    UIDocument ui;
-    // Start is called before the first frame update
     void Start()
     {
-        ui = GameObject.FindObjectOfType<UIDocument>();
+        gameManager = GetComponentInParent<GameManager>();
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("hit trif");
         if (other.gameObject.name == "BirbSprite")
         {
-            Debug.Log("was birb");
-            var gameManager = GetComponentInParent<GameManager>();
-            Debug.Log(gameManager.GetCurrentLevel());
-            if (gameManager.GetCurrentLevel() == levelNumber)
-            {
-                Debug.Log("was same level");
-                var levelCompleteLabel = ui.rootVisualElement.Query<Label>("Level-Complete-Text").AtIndex(0);
-                levelCompleteLabel.text = "Level " + levelNumber.ToString() + " Complete";
-                levelCompleteLabel.RemoveFromClassList("labelHidden");
-
-                StartCoroutine(HideLevelCompleteLabel(levelCompleteLabel));
-
-                gameManager.SetLevel(++levelNumber);
-            }
+            gameManager.SetLevel(levelNumber);
         }
     }
 
-    IEnumerator HideLevelCompleteLabel(Label levelCompleteLabel)
-    {
-        yield return new WaitForSeconds(3f);
 
-        levelCompleteLabel.AddToClassList("labelHidden");
-    }
 }

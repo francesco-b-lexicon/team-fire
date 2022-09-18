@@ -55,6 +55,7 @@ namespace BirbGame
         // Start is called before the first frame update
         void Start()
         {
+            ui ??= FindObjectOfType<UIDocument>();
             rb = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             sfx = GetComponent<PlayerAudio>();
@@ -144,12 +145,9 @@ namespace BirbGame
 
         private void UpdateUIElements()
         {
-            var uiRootEnum = ui.rootVisualElement.Children().GetEnumerator();
-            uiRootEnum.MoveNext();
-            var innerContainerEnum = uiRootEnum.Current.Children().GetEnumerator();
-            innerContainerEnum.MoveNext();
+            var inputbuttons = ui.rootVisualElement.Query("buttonsContainer").AtIndex(0).Children();
 
-            foreach (VisualElement buttonIndicator in innerContainerEnum.Current.Children())
+            foreach (VisualElement buttonIndicator in inputbuttons)
             {
                 var name = buttonIndicator.name;
                 if (name == "Wing-L")
