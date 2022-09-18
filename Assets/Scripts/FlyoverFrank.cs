@@ -15,7 +15,7 @@ public class FlyoverFrank : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * speed);
+        transform.Translate(new Vector3(1 * Time.deltaTime * speed, 0, 0));
         if (transform.position.x > endPos)
         {
             Destroy(gameObject);
