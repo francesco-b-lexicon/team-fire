@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         ui = FindObjectOfType<UIDocument>();
         backgroundMusic = GetComponentInChildren<BackgroundMusic>();
         SetLevel(1);
+        backgroundMusic.SetVolume(0);
     }
 
     public void SetLevel(int newLevel)
@@ -32,6 +33,12 @@ public class GameManager : MonoBehaviour
             backgroundMusic.SetClip(newLevel - 1);
         }
     }
+
+    public void SetVolume(float volume)
+    {
+        backgroundMusic.SetVolume(volume);
+    }
+
     IEnumerator HideLevelCompleteLabel(Label levelCompleteLabel)
     {
         yield return new WaitForSeconds(3f);

@@ -43,5 +43,7 @@ public class CutsceneTrigger : MonoBehaviour
     private void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
         Destroy(vp);
+        var gameManager = GameObject.FindObjectOfType<GameManager>();
+        gameManager.SetVolume(0.6f);
     }
 }

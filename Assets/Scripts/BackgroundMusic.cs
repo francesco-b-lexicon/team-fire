@@ -20,4 +20,9 @@ public class BackgroundMusic : MonoBehaviour
         player.clip = music[level];
         player.Play();
     }
+
+    public void SetVolume(float volume)
+    {
+        player.volume = volume;
+    }
 }
