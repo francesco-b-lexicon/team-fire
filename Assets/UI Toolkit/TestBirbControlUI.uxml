@@ -9,10 +9,10 @@
         </ui:VisualElement>
         <ui:VisualElement name="flightBarContainer" style="flex-grow: 1; justify-content: center;">
             <ui:ProgressBar title="Flight bar" high-value="50" name="Flight-Bar" />
-            <ui:ProgressBar title="Respects bar" high-value="100" name="Respects-Bar" />
+            <ui:ProgressBar title="Respects bar" high-value="100" name="Respects-Bar" class="hidden" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement style="max-height: none; min-height: 79px; justify-content: center; align-items: center;">
-        <ui:Label tabindex="-1" text="Level complete" display-tooltip-when-elided="true" name="Level-Complete-Text" class="labelHidden levelCompletedLabel" />
+        <ui:Label tabindex="-1" text="Level complete" display-tooltip-when-elided="true" name="Level-Complete-Text" class="levelCompletedLabel hidden" />
     </ui:VisualElement>
 </ui:UXML>
