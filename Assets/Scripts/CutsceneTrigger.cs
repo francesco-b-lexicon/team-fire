@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Video;
 
 public class CutsceneTrigger : MonoBehaviour
@@ -36,6 +37,8 @@ public class CutsceneTrigger : MonoBehaviour
             vp.aspectRatio = VideoAspectRatio.FitOutside;
             vp.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
             vp.clip = videoClip;
+            var ui = GameObject.FindObjectOfType<UIDocument>();
+            ui.rootVisualElement.AddToClassList("hidden");
             vp.Play();
         }
     }
@@ -45,5 +48,7 @@ public class CutsceneTrigger : MonoBehaviour
         Destroy(vp);
         var gameManager = GameObject.FindObjectOfType<GameManager>();
         gameManager.SetVolume(0.6f);
+        var ui = GameObject.FindObjectOfType<UIDocument>();
+        ui.rootVisualElement.RemoveFromClassList("hidden");
     }
 }
