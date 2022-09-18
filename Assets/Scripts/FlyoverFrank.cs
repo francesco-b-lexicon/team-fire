@@ -6,6 +6,7 @@ public class FlyoverFrank : MonoBehaviour
 {
 
     public float speed = 1f;
+    public float height = 5f;
     private float endPos = 0;
 
     // Update is called once per frame
@@ -15,7 +16,7 @@ public class FlyoverFrank : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(new Vector3(1 * Time.deltaTime * speed, 0, 0));
+        transform.Translate(Vector3.right * Time.deltaTime * speed);
         if (transform.position.x > endPos)
         {
             Destroy(gameObject);
